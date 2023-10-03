@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: oprisk_dashboard_app
+    # build:
+    #   context: ./../../../
+    #   dockerfile: ./.docker/file/staging/nest/nest.Dockerfile
+    # image: oprisk_dashboard_app:latest
+    image: registry.gitlab.com/prosperosolution/banksyariahindonesia/operational-risk-management-system/dashboard:latest-dev
+    ports:
+      - ${DOCKER_NODE_BIND_PORT}:3000
+    volumes:
+      - ./../../../app/:/apps/api
+    networks:
+      oprisk_dashboard_network:
+        ipv4_address: ${DOCKER_NODE_IP_ADDRESS}
+
+networks:
+  oprisk_dashboard_network:
+    ipam:
+      config:
+        - subnet: ${DOCKER_NETWORK_SUBNET}
